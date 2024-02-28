@@ -25,7 +25,7 @@ export default async function HomePage() {
     query: {
       client_id: process.env.GITHUB_CLIENT_ID,
       scope: "user,user:email,repo",
-      redirect_url: "http://localhost:3000/callback",
+      redirect_url: `${process.env.BASE_URL}/callback`,
     },
   });
 
