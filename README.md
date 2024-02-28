@@ -1,4 +1,13 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+此為 Dcard 2024 Frontend Intern Homework
+內容為串接 GitHub API，讓作者在登入後能夠「瀏覽」、「新增」、「更新」Blog 文章，「瀏覽」留言：非作者僅能「瀏覽」Blog 文章及「瀏覽」留言
+
+## Tack Stack
+
+- Next.js + TypeScript
+- Tailwind CSS - Styling
+- [ShadcnUI](https://ui.shadcn.com/) - Component Library
+- [Zustand](https://zustand-demo.pmnd.rs/) - State Management
+- [react-markdown](https://remarkjs.github.io/react-markdown/) + [react-markdown-editor](https://uiwjs.github.io/react-markdown-editor/) + [next-remote-mdx](https://www.npmjs.com/package/next-mdx-remote) + [Tailwind CSS Typography](https://github.com/tailwindlabs/tailwindcss-typography) - Rendering Markdown and Markdown Editor
 
 ## Getting Started
 

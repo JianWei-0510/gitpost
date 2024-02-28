@@ -4,9 +4,11 @@ import axios from "axios";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { encrypt } from "@/lib/auth";
+import { checkUser, encrypt } from "@/lib/auth";
 
 export const login = async (code: string) => {
+  console.log(code);
+  let redirectPath = "/";
   try {
     const tokenResponse = await axios.post(
       "https://github.com/login/oauth/access_token",
@@ -50,15 +52,21 @@ export const login = async (code: string) => {
       access_token,
     };
 
+    await checkUser({
+      name: user.name,
+      email: user.email,
+      avatar_url: user.avatar_url,
+    });
+
     // 建立 session
     const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
     const session = await encrypt({ user, expires });
 
     // 將 session 儲存在 cookie
     cookies().set("session", session, { expires, httpOnly: true });
+    redirectPath = `/${user.name}`;
   } catch (error) {
     console.log(error);
   }
-
-  redirect("/");
+  redirect(redirectPath);
 };

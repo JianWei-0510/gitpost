@@ -1,6 +1,8 @@
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
+import { db } from "./db";
+import { UserType } from "./type";
 
 const secretKey = process.env.SECRET_KEY;
 const key = new TextEncoder().encode(secretKey);
@@ -43,3 +45,30 @@ export async function updateSession(request: NextRequest) {
   });
   return res;
 }
+
+export const checkUser = async (user: UserType) => {
+  const userExist = await db.user.findUnique({
+    where: {
+      name: user.name,
+    },
+  });
+
+  if (userExist) return;
+
+  await db.user.create({
+    data: {
+      ...user,
+    },
+  });
+};
+
+export const getUserBlogRepo = async (username: string) => {
+  const user = await db.user.findUnique({
+    where: {
+      name: username,
+    },
+  });
+
+  if (!user || !user.blog_repo) return "";
+  return user.blog_repo;
+};
