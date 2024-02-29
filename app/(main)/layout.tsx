@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+
 import { Header } from "@/components/header";
 import { Sidebar } from "@/components/sidebar";
 import { getUser } from "@/lib/auth";
@@ -8,6 +10,8 @@ export default async function MainLayout({
   children: React.ReactNode;
 }) {
   const user = await getUser();
+
+  if (!user) redirect("/");
 
   return (
     <div className='h-full relative'>

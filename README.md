@@ -1,5 +1,10 @@
-此為 Dcard 2024 Frontend Intern Homework
-內容為串接 GitHub API，讓作者在登入後能夠「瀏覽」、「新增」、「更新」Blog 文章，「瀏覽」留言：非作者僅能「瀏覽」Blog 文章及「瀏覽」留言
+![Opengraph Image](/public/opengraph-image.png)
+[Demo](https://gitpost.up.railway.app) (The site may crush due to deployment service or database sleeping, if you encounter any problem in demo website, feel free to contact me)
+
+## Introduction
+
+This Dcard 2024 Frontend Intern Homework, whose goal is to connect with GitHub OAuth API to implement login, and user can create open issue as their blog post, close issue as deleting post.
+Author can "read", "create", "edit", "delete" their post and comment, and others can only "read" post and comment.
 
 ## Tack Stack
 
@@ -8,10 +13,28 @@
 - [ShadcnUI](https://ui.shadcn.com/) - Component Library
 - [Zustand](https://zustand-demo.pmnd.rs/) - State Management
 - [react-markdown](https://remarkjs.github.io/react-markdown/) + [react-markdown-editor](https://uiwjs.github.io/react-markdown-editor/) + [next-remote-mdx](https://www.npmjs.com/package/next-mdx-remote) + [Tailwind CSS Typography](https://github.com/tailwindlabs/tailwindcss-typography) - Rendering Markdown and Markdown Editor
+- Axios -Sending API Request
+- GitHub OAuth API - User Login
+- [Turso](https://turso.tech/) - Database
+- [Prisma ORM](https://www.prisma.io/orm) - ORM for Mutating Data
 
 ## Getting Started
 
-First, run the development server:
+First, set environment variable:
+
+```ts
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
+
+SECRET_KEY=
+
+TURSO_DATABASE_URL=
+TURSO_AUTH_TOKEN=
+
+BASE_URL=
+```
+
+Second, run the development server:
 
 ```bash
 npm run dev
@@ -25,11 +48,7 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
+## How It Work
 
 To learn more about Next.js, take a look at the following resources:
 

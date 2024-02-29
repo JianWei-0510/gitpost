@@ -4,6 +4,8 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { getPost } from "@/actions/getPost";
 import { PostList } from "@/components/posts/post-list";
 
+export const revalidate = 0;
+
 export default async function UserPage({
   params,
 }: {
