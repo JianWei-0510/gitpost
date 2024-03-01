@@ -50,15 +50,33 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## How It Work
 
-To learn more about Next.js, take a look at the following resources:
+```flow
+landingPage=>start: Landing Page "/"
+haveLogin=>condition: Login with GitHub?
+login=>inputoutput: Request user login
+haveRepo=>condition: Have a repository?
+chooseRepo=>inputoutput: Request user choose a
+existing repository as blog
+userPage=>operation: User Page "/[username]"
+cond2=>condition: 是或否？
+e=>end: 結束
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+landingPage->haveLogin
+haveLogin(yes, right)->haveRepo
+haveLogin(no, bottom)->login
+login(right)->haveRepo
+haveRepo(yes, right)->userPage
+haveRepo(no, bottom)->chooseRepo
+chooseRepo(right)->userPage
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Route
 
-## Deploy on Vercel
+- `/` - landing page, a login button to authentication page or a redirect botton to `[username]` if user have logined
+- `/callback` - a page where authentication page redirected to, used to take its query parameter `code` and send to GitHub API for obtaining user's information and access token, then save them all as JWT
+- `/select-repo` - let user select a existing repository as their blog
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The following routes have layout which contains a sidebar (or header for small screen size) to let user create post, redirect to their blog page, or logout
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- `/[username]` - User's blog page, which shows the latest ten posts at first, and when scrolling down to bottom its fetches next ten posts. Each posts is linked to their `/[username]/[postNum]` page
+- `/[username]/[postNum]` - post page, where all user can read post or leave a comment but only user can edit and delete the post
