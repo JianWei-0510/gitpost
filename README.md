@@ -48,26 +48,19 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## How It Work
+## How It Works
 
-```flow
-landingPage=>start: Landing Page "/"
-haveLogin=>condition: Login with GitHub?
-login=>inputoutput: Request user login
-haveRepo=>condition: Have a repository?
-chooseRepo=>inputoutput: Request user choose a
-existing repository as blog
-userPage=>operation: User Page "/[username]"
-cond2=>condition: 是或否？
-e=>end: 結束
-
-landingPage->haveLogin
-haveLogin(yes, right)->haveRepo
-haveLogin(no, bottom)->login
-login(right)->haveRepo
-haveRepo(yes, right)->userPage
-haveRepo(no, bottom)->chooseRepo
-chooseRepo(right)->userPage
+```mermaid
+flowchart LR
+    lp[Landing Page] --> haveLogin{Login with
+     GitHub?}
+    haveLogin -- yes --> haveRepo{Have a repository as blog?}
+    haveLogin -- no --> login[Request
+    user login] --> haveRepo{Have a repository
+    as blog?}
+    haveRepo -- yes --> userPage["User Page /[username]"]
+    haveRepo -- no --> chooseRepo[Request user choose a
+existing repository as blog] --> userPage
 ```
 
 ### Route
@@ -78,5 +71,5 @@ chooseRepo(right)->userPage
 
 The following routes have layout which contains a sidebar (or header for small screen size) to let user create post, redirect to their blog page, or logout
 
-- `/[username]` - User's blog page, which shows the latest ten posts at first, and when scrolling down to bottom its fetches next ten posts. Each posts is linked to their `/[username]/[postNum]` page
-- `/[username]/[postNum]` - post page, where all user can read post or leave a comment but only user can edit and delete the post
+- `/[username]` - User's blog page, which shows the latest ten posts at first, and when scrolling down to bottom it fetches next ten posts. Each posts is linked to their `/[username]/[postNum]` page
+- `/[username]/[postNum]` - post page, where all user can read post or leave a comment but only author can edit and delete the post
