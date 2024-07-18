@@ -7,7 +7,6 @@ import { redirect } from "next/navigation";
 import { checkUser, encrypt } from "@/lib/auth";
 
 export const login = async (code: string) => {
-  console.log(code);
   let redirectPath = "/";
   try {
     const tokenResponse = await axios.post(
@@ -52,7 +51,7 @@ export const login = async (code: string) => {
       access_token,
     };
 
-    await checkUser({
+    const userExisted = await checkUser({
       name: user.name,
       email: user.email,
       avatar_url: user.avatar_url,
@@ -64,7 +63,8 @@ export const login = async (code: string) => {
 
     // 將 session 儲存在 cookie
     cookies().set("session", session, { expires, httpOnly: true });
-    redirectPath = `/${user.name}`;
+    if (userExisted.blog_repo) redirectPath = `/${user.name}`;
+    else redirectPath = "/select-repo";
   } catch (error) {
     console.log(error);
   }

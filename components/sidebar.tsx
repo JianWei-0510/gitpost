@@ -15,21 +15,10 @@ import { Avatar, AvatarImage } from "./ui/avatar";
 import { CreatePostButton } from "./create-post-button";
 import { logout } from "@/actions/logout";
 
-const routes = [
-  {
-    label: "blog",
-    href: "/username",
-    icon: HiUserCircle,
-  },
-  {
-    label: "search",
-    href: "/search",
-    icon: HiMagnifyingGlass,
-  },
-];
-
 export const Sidebar = ({ user }: { user: any }) => {
   const pathname = usePathname();
+
+  console.log(user);
 
   return (
     <aside className='hidden md:flex fixed w-64 h-full flex-col justify-between bg-neutral-900 border-r-2 border-neutral-800'>
@@ -43,21 +32,24 @@ export const Sidebar = ({ user }: { user: any }) => {
       </div>
 
       <div className='w-full px-2 py-2 mt-20'>
-        {routes.map((route) => (
-          <Link
-            key={route.label}
-            href={route.href === "/username" ? `/${user.name}` : route.href}
-            className={cn(
-              "group px-4 py-2 pl-12 rounded-lg flex items-center text-xl font-semibold uppercase gap-x-3 w-full hover:bg-neutral-500/10 active:bg-neutral-600/10 active:scale-95 active:text-neutral-400 transition mb-3",
-              pathname.includes(route.href) ||
-                (route.href === "/username" && pathname.includes(user.name))
-                ? "bg-neutral-500/10"
-                : ""
-            )}>
-            <route.icon className='w-6 h-6' />
-            <p>{route.label}</p>
-          </Link>
-        ))}
+        <Link
+          href={`/${user.name}`}
+          className={cn(
+            "group px-4 py-2 pl-12 rounded-lg flex items-center text-xl font-semibold uppercase gap-x-3 w-full hover:bg-neutral-500/10 active:bg-neutral-600/10 active:scale-95 active:text-neutral-400 transition mb-3",
+            pathname.includes(`/${user.name}`) ? "bg-neutral-500/10" : ""
+          )}>
+          <HiUserCircle className='w-6 h-6' />
+          <p>blog</p>
+        </Link>
+        <Link
+          href='/search'
+          className={cn(
+            "group px-4 py-2 pl-12 rounded-lg flex items-center text-xl font-semibold uppercase gap-x-3 w-full hover:bg-neutral-500/10 active:bg-neutral-600/10 active:scale-95 active:text-neutral-400 transition mb-3",
+            pathname.includes("/search") ? "bg-neutral-500/10" : ""
+          )}>
+          <HiMagnifyingGlass className='w-6 h-6' />
+          <p>search</p>
+        </Link>
         <div className='w-full flex items-center justify-center mt-8'>
           <CreatePostButton />
         </div>

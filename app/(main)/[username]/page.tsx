@@ -3,6 +3,8 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 import { getPost } from "@/actions/getPost";
 import { PostList } from "@/components/posts/post-list";
+import { redirect } from "next/navigation";
+import { getUser } from "@/lib/auth";
 
 export const revalidate = 0;
 
@@ -11,11 +13,16 @@ export default async function UserPage({
 }: {
   params: { username: string };
 }) {
+  const curUser = await getUser();
+
   const blogUser = await db.user.findUnique({
     where: {
       name: params.username,
     },
   });
+
+  if (curUser.name === blogUser?.name && !blogUser?.blog_repo)
+    return redirect("/select-repo");
 
   const { posts, postsCount } = await getPost(blogUser, 1);
 

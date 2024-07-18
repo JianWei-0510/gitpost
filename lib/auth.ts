@@ -47,19 +47,21 @@ export async function updateSession(request: NextRequest) {
 }
 
 export const checkUser = async (user: UserType) => {
-  const userExist = await db.user.findUnique({
+  const userExisted = await db.user.findUnique({
     where: {
       name: user.name,
     },
   });
 
-  if (userExist) return;
+  if (userExisted) return userExisted;
 
-  await db.user.create({
+  const newUser = await db.user.create({
     data: {
       ...user,
     },
   });
+
+  return newUser;
 };
 
 export const getUserBlogRepo = async (username: string) => {

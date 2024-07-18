@@ -24,7 +24,6 @@ export const PostList = ({
     const loadMorPost = async () => {
       if (inView) {
         const next = page + 1;
-        console.log(next);
         const { posts: newPosts } = await getPost(user, next);
         if (newPosts?.length) {
           setPage(next);
