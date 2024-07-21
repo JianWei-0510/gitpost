@@ -41,4 +41,3 @@ next-env.d.ts
 /playwright/.cache/
 
 playwright/.auth
-playwright/auth.setup.ts
