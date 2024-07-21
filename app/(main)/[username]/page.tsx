@@ -24,7 +24,11 @@ export default async function UserPage({
   if (curUser.name === blogUser?.name && !blogUser?.blog_repo)
     return redirect("/select-repo");
 
-  const { posts, postsCount } = await getPost(blogUser, 1);
+  const { posts, postsCount } = await getPost(
+    blogUser,
+    curUser?.access_token,
+    1
+  );
 
   return (
     <div className='w-full h-full'>
